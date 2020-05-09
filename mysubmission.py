@@ -175,6 +175,9 @@ def submission(path):#AXC用
     with open(path+'main.py',mode='r') as f:
         mycode = f.read()+'\n'
     
+    with open('config.txt',mode='r') as f:#read config.txt
+        userstatus = f.read().split()
+    
     #セッション
     session=requests.session()
 
@@ -187,7 +190,7 @@ def submission(path):#AXC用
     csrf_token = s.find(attrs={'name': 'csrf_token'}).get('value')
 
     # パラメータセット
-    login_info = {"csrf_token": csrf_token,"username":'akimasa_l',"password":'siomidai2-6'}#隠しとけ
+    login_info = {"csrf_token": csrf_token,"username":userstatus[0],"password":userstatus[1]}#隠しとけ
     #login
     result = session.post(loginurl, data=login_info)
     result.raise_for_status()

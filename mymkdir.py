@@ -63,6 +63,8 @@ errorlabel=tk.Label(start, textvariable=errorvar)
 errorlabel.place(anchor='center',x=80,y=175)
 
 def mymkdir(continfo,contget):
+    with open('config.txt',mode='r') as f:#read config.txt
+        userstatus = f.read().split()
     #セッション
     session=requests.session()
 
@@ -76,7 +78,7 @@ def mymkdir(continfo,contget):
     csrf_token = s.find(attrs={'name': 'csrf_token'}).get('value')
 
     # パラメータセット
-    login_info = {"csrf_token": csrf_token,"username":'akimasa_l',"password":'siomidai2-6'}#隠しとけ
+    login_info = {"csrf_token": csrf_token,"username":userstatus[0],"password":userstatus[1]}#隠しとけ
     #login
     result = session.post(loginurl, data=login_info)
     result.raise_for_status()
@@ -109,7 +111,7 @@ def mymkdir(continfo,contget):
             f.write(outputcase[i].replace('\r\n','\n'))
     
     #vscodeでファイルを開く
-    vscodepath=r"C:\Users\liumi\AppData\Local\Programs\Microsoft VS Code\Code.exe"#隠せ
+    vscodepath=userstatus[2]
     subprocess.Popen([vscodepath,programpath])
 
 def getcontinfo():
