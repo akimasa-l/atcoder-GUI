@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup #インスコ必須 #lxmlももしかしたら必�
 '''
 やっておくべきこと
 もしかしたらコンテスト中はうごかないかも
-
+other をしっかり
 '''
 
 def checkExistContest(continfo):
