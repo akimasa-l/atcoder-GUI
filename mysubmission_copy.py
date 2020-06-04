@@ -215,9 +215,9 @@ def runcases(path):
     resultlist=list()
     for i in range(len(glob.glob(path+'input*.txt'))):
         try:#走らせる
-            mycode = 'python main.py < input{}.txt'.format(i)
+            mycode = 'cat input{}.txt | python main.py'.format(i)
             starttime=time.time()
-            a=subprocess.run(mycode,timeout=5,shell=True,stdout = subprocess.PIPE, stderr = subprocess.STDOUT,cwd=path)
+            a=subprocess.run(mycode,timeout=5,stdout = subprocess.PIPE, stderr = subprocess.STDOUT,cwd=path)
         except subprocess.TimeoutExpired:#TLEなら
             TLERE(i,path,'TLE',int((time.time()-starttime)*1000),a.stdout.decode().replace('\r\n','\n'))
             resultlist.append('TLE')
