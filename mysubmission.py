@@ -17,8 +17,133 @@ ACWAとかに色を付ける
 ほかデザイン全般
 other をしっかり
 '''
+class atcoderGUI:
+    def __init__(self):
+        pass
+    def ACWA(self,num,path,result,time,myoutput):
+        detail = tk.Tk()
+        detail.geometry('700x700')
+        detail.title(u'テストケースチェック')
+        
+        
+        #makeframe
+        mainframe = tk.Frame(detail)
+        mainframe.pack()
+        codeframe = tk.LabelFrame(mainframe,text='Source Code',width = 160, height = 600, labelanchor = tk.N)
+        codeframe.pack(padx = 5, pady = 5, side = tk.LEFT)
+        codeframe.propagate(False)
+        inputframe = tk.LabelFrame(mainframe,text='input',width = 160, height = 600, labelanchor = tk.N)
+        inputframe.pack(padx = 5, pady = 5, side = tk.LEFT)
+        inputframe.propagate(False)
+        outputframe = tk.LabelFrame(mainframe,text='output',width = 160, height = 600, labelanchor = tk.N)
+        outputframe.pack(padx = 5, pady = 5, side = tk.LEFT)
+        outputframe.propagate(False)
+        myoutputframe = tk.LabelFrame(mainframe,text='myoutput',width = 160, height = 600, labelanchor = tk.N)
+        myoutputframe.pack(padx = 5, pady = 5, side = tk.LEFT)
+        myoutputframe.propagate(False)
+        #makestringvar
+        codevar = tk.StringVar()
+        inputvar = tk.StringVar()
+        outputvar = tk.StringVar()
+        myoutputvar = tk.StringVar()
+        
+        #今回は特別
+        myoutputvar.set(myoutput)
+        
+        #getsourcecode,input,output and set
+        with open(path+'main.py',mode='r') as f:
+            codevar.set('\n'.join([textwrap.fill(i,30) for i in f.read().split('\n')]))#改行一つずつに対して文字数制限
+        with open(path+'input{}.txt'.format(num),mode='r') as f:
+            inputvar.set('\n'.join([textwrap.fill(i,30) for i in f.read().split('\n')]))#改行一つずつに対して文字数制限
+        with open(path+'output{}.txt'.format(num),mode='r') as f:
+            outputvar.set('\n'.join([textwrap.fill(i,30) for i in f.read().split('\n')]))#改行一つずつに対して文字数制限
+        
+        #makelabel
+        codelabel = tk.Label(codeframe,textvariable=codevar,bg='white',justify=tk.LEFT)
+        codelabel.pack()
+        inputlabel = tk.Label(inputframe,textvariable=inputvar,bg='white',justify=tk.LEFT)
+        inputlabel.pack()
+        outputlabel = tk.Label(outputframe,textvariable=outputvar,bg='white',justify=tk.LEFT)
+        outputlabel.pack()
+        myoutputlabel = tk.Label(myoutputframe,textvariable=myoutputvar,bg='white',justify=tk.LEFT)
+        myoutputlabel.pack()
+        
+        #詳細情報
+        belowframe = tk.Frame(detail)
+        belowframe.pack()
+        #button
+        buttontext = 'Next'
+        button = tk.Button(belowframe,text=buttontext,command=lambda : detail.destroy(),width = 5, height = 3)
+        button.pack(side=tk.RIGHT)
+        #property
+        propertytext = 'Task : {} Status : {} Exec time : {}ms Code Size : {}'.format('ABC012 input{}.txt'.format(num),result,time,os.path.getsize(path+'main.py'))
+        propertyframe = tk.LabelFrame(belowframe,text='Property',width = 500, height = 70, labelanchor = tk.NW)
+        propertyframe.pack(padx = 5, pady = 5, side = tk.LEFT)
+        propertyframe.propagate(False)
+        propertylabel = tk.Label(propertyframe,text=propertytext,justify=tk.CENTER)
+        propertylabel.pack()
+        
+        detail.mainloop()
+    
+    def TLERE(self,num,path,result,time,myoutput):
+        detail = tk.Tk()
+        detail.geometry('700x700')
+        detail.title(u'テストケースチェック')
+        
+        
+        #makeframe
+        mainframe = tk.Frame(detail)
+        mainframe.pack()
+        codeframe = tk.LabelFrame(mainframe,text='Source Code',width = 220, height = 600, labelanchor = tk.N)
+        codeframe.pack(padx = 5, pady = 5, side = tk.LEFT)
+        codeframe.propagate(False)
+        inputframe = tk.LabelFrame(mainframe,text='input',width = 220, height = 600, labelanchor = tk.N)
+        inputframe.pack(padx = 5, pady = 5, side = tk.LEFT)
+        inputframe.propagate(False)
+        myoutputframe = tk.LabelFrame(mainframe,text='myoutput',width = 220, height = 600, labelanchor = tk.N)
+        myoutputframe.pack(padx = 5, pady = 5, side = tk.LEFT)
+        myoutputframe.propagate(False)
+        #makestringvar
+        codevar = tk.StringVar()
+        inputvar = tk.StringVar()
+        myoutputvar = tk.StringVar()
+        
+        #今回は特別
+        myoutputvar.set(myoutput)
+        
+        #getsourcecode,input,output and set
+        with open(path+'main.py',mode='r') as f:
+            codevar.set('\n'.join([textwrap.fill(i,30) for i in f.read().split('\n')]))#改行一つずつに対して文字数制限
+        with open(path+'input{}.txt'.format(num),mode='r') as f:
+            inputvar.set('\n'.join([textwrap.fill(i,30) for i in f.read().split('\n')]))#改行一つずつに対して文字数制限
+        
+        #makelabel
+        codelabel = tk.Label(codeframe,textvariable=codevar,bg='white',justify=tk.LEFT)
+        codelabel.pack()
+        inputlabel = tk.Label(inputframe,textvariable=inputvar,bg='white',justify=tk.LEFT)
+        inputlabel.pack()
+        myoutputlabel = tk.Label(myoutputframe,textvariable=myoutputvar,bg='white',justify=tk.LEFT)
+        myoutputlabel.pack()
+        
+        #詳細情報
+        belowframe = tk.Frame(detail)
+        belowframe.pack()
+        #button
+        buttontext = 'Next'
+        button = tk.Button(belowframe,text=buttontext,command=lambda : detail.destroy(),width = 5, height = 3)
+        button.pack(side=tk.RIGHT)
+        #property
+        propertytext = 'Task : {} Status : {} Exec time : {}ms Code Size : {}'.format('ABC012 input{}.txt'.format(num),result,time,os.path.getsize(path+'main.py'))
+        propertyframe = tk.LabelFrame(belowframe,text='Property',width = 500, height = 70, labelanchor = tk.NW)
+        propertyframe.pack(padx = 5, pady = 5, side = tk.LEFT)
+        propertyframe.propagate(False)
+        propertylabel = tk.Label(propertyframe,text=propertytext,justify=tk.CENTER)
+        propertylabel.pack()
+        
+        detail.mainloop()
 
 
+'''
 contget = list()
 #メインウィンドウ
 root=tk.Tk()
@@ -46,6 +171,7 @@ def changelevel():#levelcombo['values']にcontgetを渡す
     global contget
     levelcombo['values']=contget
 
+'''
 def ACWA(num,path,result,time,myoutput):
     detail = tk.Tk()
     detail.geometry('700x700')
@@ -167,6 +293,7 @@ def TLERE(num,path,result,time,myoutput):
     propertylabel.pack()
     
     detail.mainloop()
+'''
 
 def selectcase(path):#ケースを選べるようにしたい...
     pass
@@ -191,7 +318,7 @@ def submission(path):#AXC用
     csrf_token = s.find(attrs={'name': 'csrf_token'}).get('value')
 
     # パラメータセット
-    login_info = {"csrf_token": csrf_token,"username":userstatus[0],"password":userstatus[1]}#隠しとけ
+    login_info = {"csrf_token": csrf_token,"username":userstatus[0],"password":userstatus[1]}
     #login
     result = session.post(loginurl, data=login_info)
     result.raise_for_status()
@@ -289,3 +416,4 @@ getbutton=tk.Button(root,text=u'送信',command=getlevelinfo,width=10)
 getbutton.place(anchor='center',x=150,y=150)
 
 root.mainloop()
+'''
