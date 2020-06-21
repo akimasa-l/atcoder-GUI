@@ -17,9 +17,13 @@ ACWAとかに色を付ける
 ほかデザイン全般
 other をしっかり
 '''
-class atcoderGUI:
+class AtCoderGUI:
     def __init__(self):
-        pass
+        self.stringLen=30
+    def openfile(self,path):
+        with open(path,mode='r') as f:
+            a='\n'.join([textwrap.fill(i,self.stringLen) for i in f.read().split('\n')])
+        return a
     def ACWA(self,num,path,result,time,myoutput):
         detail = tk.Tk()
         detail.geometry('700x700')
@@ -51,13 +55,17 @@ class atcoderGUI:
         myoutputvar.set(myoutput)
         
         #getsourcecode,input,output and set
+        '''
         with open(path+'main.py',mode='r') as f:
             codevar.set('\n'.join([textwrap.fill(i,30) for i in f.read().split('\n')]))#改行一つずつに対して文字数制限
         with open(path+'input{}.txt'.format(num),mode='r') as f:
             inputvar.set('\n'.join([textwrap.fill(i,30) for i in f.read().split('\n')]))#改行一つずつに対して文字数制限
         with open(path+'output{}.txt'.format(num),mode='r') as f:
             outputvar.set('\n'.join([textwrap.fill(i,30) for i in f.read().split('\n')]))#改行一つずつに対して文字数制限
-        
+        '''
+        codevar.set(AtCoderGUI().openfile(path=path+'main.py'))
+        inputvar.set(AtCoderGUI().openfile(path=path+'input{}.txt'.format(num)))
+        outputvar.set(AtCoderGUI().openfile(path=path+'output{}.txt'.format(num)))
         #makelabel
         codelabel = tk.Label(codeframe,textvariable=codevar,bg='white',justify=tk.LEFT)
         codelabel.pack()
